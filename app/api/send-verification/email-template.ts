@@ -44,7 +44,7 @@ export function getEmailTemplate(verificationLink: string): string {
                                     <td align="center" style="padding-bottom: 20px;">
                                         <table border="0" cellpadding="0" cellspacing="0" role="presentation">
                                             <tr>
-                                                <td align="center" style="border-radius: 30px; background-color: #555555; padding: 15px 40px;">
+                                                <td align="center" style="border-radius: 30px; background-color: #0FADEB; padding: 15px 40px;">
                                                     <a href="${verificationLink}" target="_blank" style="color: #ffffff; font-size: 16px; font-weight: bold; text-decoration: none;">VERIFICAR E-MAIL</a>
                                                 </td>
                                             </tr>
