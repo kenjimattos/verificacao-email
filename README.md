@@ -58,9 +58,6 @@ npm run dev
 # Chave secreta para assinar tokens JWT (obrigatório em produção)
 JWT_SECRET=sua-chave-secreta-muito-segura
 
-# URL base da aplicação
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-
 # Resend - Envio de e-mails (https://resend.com)
 RESEND_API_KEY=re_xxxxxxxxxxxx
 EMAIL_FROM=noreply@seudominio.com
