@@ -5,6 +5,13 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.1.1] - 2025-12-13
+
+### Alterado
+- URL base capturada dinamicamente da requisição (headers `host` e `x-forwarded-proto`)
+- Remove variável de ambiente `NEXT_PUBLIC_APP_URL` (não é mais necessária)
+- Funciona automaticamente em qualquer ambiente sem configuração adicional
+
 ## [1.1.0] - 2025-12-13
 
 ### Adicionado
