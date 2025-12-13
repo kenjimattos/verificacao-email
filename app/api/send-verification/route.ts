@@ -5,13 +5,8 @@ import { optionsResponse, jsonResponse, errorResponse } from '@/lib/cors';
 import { createVerificationToken } from '@/lib/jwt';
 import { isValidEmail } from '@/lib/validation';
 import { messages } from '@/lib/messages';
+import { getBaseUrl } from '@/lib/url';
 import { getEmailTemplate } from './email-template';
-
-function getBaseUrl(request: NextRequest): string {
-  const host = request.headers.get('host') || 'localhost:3000';
-  const protocol = request.headers.get('x-forwarded-proto') || 'http';
-  return `${protocol}://${host}`;
-}
 
 export async function OPTIONS() {
   return optionsResponse();
