@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Mail, Shield, Clock, CheckCircle, AlertCircle, Lock, ArrowRight } from 'lucide-react';
+import { version } from '@/package.json';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -167,7 +168,7 @@ export default function HomePage() {
           GitHub
         </a>
         <span className="text-muted-foreground">·</span>
-        <span className="text-muted-foreground text-xs">v1.1.0</span>
+        <span className="text-muted-foreground text-xs">v{version}</span>
       </div>
     </div>
   );
