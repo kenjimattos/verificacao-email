@@ -9,10 +9,10 @@ Serviço simples de verificação de e-mails para desenvolvedores. Utiliza JWT p
 ## Como Funciona
 
 ```
-┌─────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│  Sua App    │────▶│  POST /api/      │────▶│  Resend (SMTP)  │
+┌─────────────┐     ┌───────────────────┐     ┌─────────────────┐
+│  Sua App    │────▶│  POST /api/       │────▶│  Resend (SMTP)  │
 │             │     │  send-verification│     │                 │
-└─────────────┘     └──────────────────┘     └─────────────────┘
+└─────────────┘     └───────────────────┘     └─────────────────┘
                             │
                             │ JWT Token
                             ▼
