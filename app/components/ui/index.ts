@@ -4,3 +4,4 @@ export { Alert } from './alert';
 export { Card } from './card';
 export { Badge } from './badge';
 export { Container } from './container';
+export { Divider } from './divider';

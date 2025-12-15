@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Mail, Shield, Clock, Lock, ArrowRight, Github } from 'lucide-react';
-import { Input, Button, Alert, Card, Badge } from './components/ui';
+import { Input, Button, Alert, Card, Divider } from './components/ui';
 import { version, repository} from '@/package.json';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
