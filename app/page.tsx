@@ -127,9 +127,10 @@ export default function HomePage() {
       {/* Tech Stack */}
       <div className="pt-4 border-t border-border">
         <div className="flex flex-wrap justify-center gap-2">
-          {['Next.js 16', 'JWT', 'Resend', 'TypeScript'].map((tech) => (
-            <Badge key={tech}>{tech}</Badge>
-          ))}
+          <Badge href="https://nextjs.org">Next.js 16</Badge>
+          <Badge href="https://jwt.io">JWT</Badge>
+          <Badge href="https://resend.com">Resend</Badge>
+          <Badge href="https://www.typescriptlang.org">TypeScript</Badge>
         </div>
       </div>
 
