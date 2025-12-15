@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Mail, Shield, Clock, Lock, ArrowRight, Github } from 'lucide-react';
 import { Input, Button, Alert, Card, Divider } from './components/ui';
 import { version, repository} from '@/package.json';
+import { TechStack } from './components/tech-stack';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -86,13 +87,13 @@ export default function HomePage() {
         </Alert>
       )}
 
-      {/* Divider */}
-      <div className="border-t border-border pt-6">
-        <p className="text-xs text-muted-foreground uppercase tracking-wide mb-4">Como funciona</p>
-      </div>
+      <Divider/>
+
+      <p className="text-xs uppercase tracking-wide">Como funciona</p>
 
       {/* Security Features */}
       <div className="grid gap-4 text-left">
+
         <Card className="flex items-start gap-3">
           <Lock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
           <div>
@@ -123,17 +124,8 @@ export default function HomePage() {
           </div>
         </Card>
       </div>
-
-      {/* Tech Stack */}
-      <div className="pt-4 border-t border-border">
-        <div className="flex flex-wrap justify-center gap-2">
-          <Badge href="https://nextjs.org">Next.js 16</Badge>
-          <Badge href="https://jwt.io">JWT</Badge>
-          <Badge href="https://resend.com">Resend</Badge>
-          <Badge href="https://www.typescriptlang.org">TypeScript</Badge>
-        </div>
-      </div>
-
+      <Divider />
+      <TechStack />
       {/* Footer */}
       <div className="flex items-center justify-center gap-3 text-sm text-muted">
         <a
