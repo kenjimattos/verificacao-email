@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kenjimattos/verificacao-email.git"
+    "url": "git+https://github.com/kenjimattos/verificacao-email"
   },
   "author": "Kenji Mattos Kinoshita",
   "license": "ISC",
