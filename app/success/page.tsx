@@ -1,5 +1,6 @@
 import { Check, Shield, Mail, Clock, ArrowLeft } from "lucide-react";
 import { LinkBadge } from "../components/ui/link-badge";
+import { Card } from "../components/ui";
 
 async function SuccessPage({
   searchParams,
@@ -21,9 +22,9 @@ async function SuccessPage({
       </div>
 
       {/* Detalhes da verificação */}
-      {email && (
-        <div className="bg-card rounded-lg p-4 space-y-3 text-left">
-          <p className="text-xs text-muted-foreground uppercase tracking-wide">Detalhes da verificação</p>
+      
+        <Card>
+          <p className="text-label">Detalhes da verificação</p>
 
           <div className="flex items-center gap-3">
             <Mail className="w-4 h-4 text-primary" />
@@ -53,8 +54,8 @@ async function SuccessPage({
               <p className="text-success-600">Token JWT válido</p>
             </div>
           </div>
-        </div>
-      )}
+        </Card>
+      
 
       {/* O que aconteceu */}
       <div className="bg-info-50 border border-info-100 rounded-lg p-4 text-left">
