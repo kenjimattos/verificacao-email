@@ -47,10 +47,8 @@ export default function HomePage() {
         <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
           <Mail className="w-8 h-8 text-primary" />
         </div>
-        <h1 className="text-2xl font-semibold mb-2">Verificação de E-mail</h1>
-        <p className="text-muted text-sm">
-          Sistema de verificação stateless com JWT
-        </p>
+        <h1>Verificação de E-mail</h1>
+        <p>Sistema de verificação stateless com JWT</p>
       </div>
 
       {/* Form */}
@@ -90,38 +88,38 @@ export default function HomePage() {
 
       <Divider/>
 
-      <p className="text-xs uppercase tracking-wide">Como funciona</p>
-
       {/* Security Features */}
       <div className="grid gap-4 text-left">
+
+        <p className="text-label text-center">Como funciona</p>
 
         <Card className="flex items-start gap-3">
           <Lock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-sm">Token JWT Assinado</p>
-            <p className="text-xs text-muted mt-0.5">
+            <h2>Token JWT Assinado</h2>
+            <small>
               Token criptografado com HS256, impossível de falsificar sem a chave secreta
-            </p>
+            </small>
           </div>
         </Card>
 
         <Card className="flex items-start gap-3">
           <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-sm">Expiração Automática</p>
-            <p className="text-xs text-muted mt-0.5">
+            <h2>Expiração Automática</h2>
+            <small>
               Token expira em 5 minutos, protegendo contra uso indevido
-            </p>
+            </small>
           </div>
         </Card>
 
         <Card className="flex items-start gap-3">
           <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-sm">Stateless (Sem Banco)</p>
-            <p className="text-xs text-muted mt-0.5">
+            <h2>Stateless (Sem Banco)</h2>
+            <small>
               Toda informação está no token, sem necessidade de armazenamento
-            </p>
+            </small>
           </div>
         </Card>
       </div>

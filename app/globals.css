@@ -75,4 +75,8 @@
   }
 }
 
+@layer components {
+  .text-label {
+    @apply text-xs text-muted-foreground uppercase tracking-wide;
+  }
 }

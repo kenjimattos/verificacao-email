@@ -16,10 +16,8 @@ async function SuccessPage({
       </div>
 
       <div>
-        <h1 className="text-2xl font-semibold mb-2">E-mail Verificado!</h1>
-        <p className="text-muted">
-          Sua identidade foi confirmada com sucesso.
-        </p>
+        <h1>E-mail Verificado!</h1>
+        <p>Sua identidade foi confirmada com sucesso.</p>
       </div>
 
       {/* Detalhes da verificação */}
@@ -30,16 +28,16 @@ async function SuccessPage({
           <div className="flex items-center gap-3">
             <Mail className="w-4 h-4 text-primary" />
             <div>
-              <p className="text-xs text-muted-foreground">E-mail verificado</p>
-              <p className="text-sm font-medium">{email}</p>
+              <small>E-mail verificado</small>
+              <p>{email ? email : "N/A"}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             <Clock className="w-4 h-4 text-primary" />
             <div>
-              <p className="text-xs text-muted-foreground">Data/hora</p>
-              <p className="text-sm font-medium">
+              <small>Data/hora</small>
+              <p>
                 {new Date().toLocaleString('pt-BR', {
                   dateStyle: 'short',
                   timeStyle: 'short'
@@ -51,8 +49,8 @@ async function SuccessPage({
           <div className="flex items-center gap-3">
             <Shield className="w-4 h-4 text-success-600" />
             <div>
-              <p className="text-xs text-muted-foreground">Status</p>
-              <p className="text-sm font-medium text-success-600">Token JWT válido</p>
+              <small>Status</small>
+              <p className="text-success-600">Token JWT válido</p>
             </div>
           </div>
         </div>

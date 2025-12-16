@@ -15,10 +15,10 @@ async function ErrorPage({
       </div>
 
       <div>
-        <h1 className="text-2xl font-semibold mb-2">E-mail Não Verificado!</h1>
-        <p className="text-muted">
+        <h1>E-mail Não Verificado!</h1>
+        <small>
           Não foi possível verificar seu e-mail. Por favor, tente novamente.
-        </p>
+        </small>
       </div>
 
       {message && (
