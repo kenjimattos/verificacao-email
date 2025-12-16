@@ -5,6 +5,23 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.1.2] - 2025-12-15
+
+### Alterado
+- URL do repositório atualizada
+
+### Refatorado
+- Padronização do card na página de sucesso
+- Unificação de estilos de texto em componente reutilizável
+- Links externos e internos unificados no mesmo componente
+- Componentização da seção de stack tecnológico
+- Componente Divider extraído
+- Reorganização de componentes de UI e estrutura do formulário
+- Ícones SVG substituídos por ícones da biblioteca Lucide
+
+### Adicionado
+- Links nas badges do stack tecnológico
+
 ## [1.1.1] - 2025-12-13
 
 ### Alterado

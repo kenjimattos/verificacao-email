@@ -6,6 +6,8 @@ Serviço simples de verificação de e-mails para desenvolvedores. Utiliza JWT p
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
 
+🔗 **Preview:** [verificacao-email.vercel.app](https://verificacao-email.vercel.app/)
+
 ## Como Funciona
 
 ```
