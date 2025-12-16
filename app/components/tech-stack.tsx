@@ -1,4 +1,4 @@
-import { Badge } from './ui/badge';
+import { LinkBadge } from "./ui/link-badge";
 
 export function TechStack() {
   const techs = [
@@ -11,9 +11,9 @@ export function TechStack() {
   return (
     <div className="flex flex-wrap justify-center gap-2">
       {techs.map((tech) => (
-        <Badge key={tech.name} href={tech.url}>
+        <LinkBadge key={tech.name} href={tech.url}>
           {tech.name}
-        </Badge>
+        </LinkBadge>
       ))}
     </div>
   );

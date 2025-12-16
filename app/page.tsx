@@ -5,6 +5,7 @@ import { Mail, Shield, Clock, Lock, ArrowRight, Github } from 'lucide-react';
 import { Input, Button, Alert, Card, Divider } from './components/ui';
 import { version, repository} from '@/package.json';
 import { TechStack } from './components/tech-stack';
+import { LinkBadge } from './components/ui/link-badge';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -128,15 +129,14 @@ export default function HomePage() {
       <TechStack />
       {/* Footer */}
       <div className="flex items-center justify-center gap-3 text-sm text-muted">
-        <a
+        <LinkBadge
           href={repository.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 hover:text-primary transition-colors"
+          external
         >
           <Github className="w-5 h-5 flex-shrink-0 mt-0.5" />
           GitHub
-        </a>
+        </LinkBadge>
+
         <span className="text-muted-foreground">·</span>
         <span className="text-muted-foreground text-xs">v{version}</span>
       </div>
