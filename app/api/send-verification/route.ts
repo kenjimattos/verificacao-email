@@ -40,7 +40,6 @@ export async function POST(request: NextRequest) {
     return jsonResponse({ message: messages.emailSent }, request);
 
   } catch (error: unknown) {
-    console.error('Erro ao enviar e-mail:', error);
     const errorMessage = error instanceof Error ? error.message : messages.serverError;
     return errorResponse(errorMessage, request);
   }

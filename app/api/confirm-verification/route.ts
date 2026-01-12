@@ -17,15 +17,12 @@ export async function GET(request: NextRequest) {
     }
 
     const { email } = await verifyToken(token);
-    console.log('E-mail verificado:', email);
 
     const successUrl = new URL('/success', request.url);
     successUrl.searchParams.set('email', email);
     return NextResponse.redirect(successUrl);
 
   } catch (error: unknown) {
-    console.error('Erro na verificação:', error);
-
     const message = error instanceof Error
       ? getVerificationErrorMessage(error)
       : messages.tokenInvalid;
