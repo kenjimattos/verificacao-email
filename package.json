@@ -1,6 +1,6 @@
 {
   "name": "verificacao-email",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Serviço de verificação de e-mails para desenvolvedores",
   "main": "index.js",
   "dependencies": {
