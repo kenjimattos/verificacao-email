@@ -1,6 +1,6 @@
 import { Check, Shield, Mail, Clock, ArrowLeft } from "lucide-react";
 import { LinkBadge } from "../components/ui/link-badge";
-import { Card, IconCircle } from "../components/ui";
+import { Card, IconCircle, DetailItem } from "../components/ui";
 
 async function SuccessPage({
   searchParams,
@@ -24,34 +24,28 @@ async function SuccessPage({
         <Card>
           <p className="text-label">Detalhes da verificação</p>
 
-          <div className="flex items-center gap-3">
-            <Mail className="w-4 h-4 text-primary" />
-            <div>
-              <small>E-mail verificado</small>
-              <p>{email ?? "N/A"}</p>
-            </div>
-          </div>
+          <DetailItem
+            icon={Mail}
+            label="E-mail verificado"
+            value={email ?? "N/A"}
+          />
 
-          <div className="flex items-center gap-3">
-            <Clock className="w-4 h-4 text-primary" />
-            <div>
-              <small>Data/hora</small>
-              <p>
-                {new Date().toLocaleString('pt-BR', {
-                  dateStyle: 'short',
-                  timeStyle: 'short'
-                })}
-              </p>
-            </div>
-          </div>
+          <DetailItem
+            icon={Clock}
+            label="Data/hora"
+            value={new Date().toLocaleString('pt-BR', {
+              dateStyle: 'short',
+              timeStyle: 'short'
+            })}
+          />
 
-          <div className="flex items-center gap-3">
-            <Shield className="w-4 h-4 text-success-600" />
-            <div>
-              <small>Status</small>
-              <p className="text-success-600">Token JWT válido</p>
-            </div>
-          </div>
+          <DetailItem
+            icon={Shield}
+            label="Status"
+            value="Token JWT válido"
+            iconColor="text-success-600"
+            valueColor="text-success-600"
+          />
         </Card>
       
 

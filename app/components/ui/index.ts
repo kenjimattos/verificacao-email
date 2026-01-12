@@ -5,3 +5,4 @@ export { Card } from './card';
 export { Container } from './container';
 export { Divider } from './divider';
 export { IconCircle } from './icon-circle';
+export { DetailItem } from './detail-item';
