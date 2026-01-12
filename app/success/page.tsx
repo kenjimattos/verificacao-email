@@ -1,6 +1,6 @@
 import { Check, Shield, Mail, Clock, ArrowLeft } from "lucide-react";
 import { LinkBadge } from "../components/ui/link-badge";
-import { Card, IconCircle, DetailItem } from "../components/ui";
+import { Card, IconCircle, DetailItem, InfoBox } from "../components/ui";
 
 async function SuccessPage({
   searchParams,
@@ -50,14 +50,13 @@ async function SuccessPage({
       
 
       {/* O que aconteceu */}
-      <div className="bg-info-50 border border-info-100 rounded-lg p-4 text-left">
-        <p className="text-sm text-info-800 font-medium mb-2">O que aconteceu?</p>
-        <ol className="text-xs text-info-700 space-y-1 list-decimal list-inside">
+      <InfoBox variant="info" title="O que aconteceu?">
+        <ol className="text-xs space-y-1 list-decimal list-inside">
           <li>Você clicou no link enviado por e-mail</li>
           <li>O token JWT foi validado (assinatura + expiração)</li>
           <li>Seu e-mail foi extraído do token de forma segura</li>
         </ol>
-      </div>
+      </InfoBox>
 
       {/* Voltar */}
       <LinkBadge

@@ -6,3 +6,4 @@ export { Container } from './container';
 export { Divider } from './divider';
 export { IconCircle } from './icon-circle';
 export { DetailItem } from './detail-item';
+export { InfoBox } from './info-box';

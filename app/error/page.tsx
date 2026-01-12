@@ -1,6 +1,6 @@
 import { X, ArrowLeft } from "lucide-react"
 import { LinkBadge } from "../components/ui/link-badge";
-import { IconCircle } from "../components/ui";
+import { IconCircle, InfoBox } from "../components/ui";
 
 async function ErrorPage({
   searchParams,
@@ -21,9 +21,9 @@ async function ErrorPage({
       </div>
 
       {message && (
-        <div className="bg-error-50 border border-error-200 rounded-lg p-4">
-          <p className="text-sm text-error-800">{message}</p>
-        </div>
+        <InfoBox variant="error">
+          {message}
+        </InfoBox>
       )}
 
       {/* Voltar */}
