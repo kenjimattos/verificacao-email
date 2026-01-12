@@ -93,7 +93,7 @@ export default function HomePage() {
 
           <p className="text-label text-center">Como funciona</p>
 
-          {cards.map((card, i) => <Cartao key={i} card={card} />)}
+          {cards.map((card) => <Cartao key={card.id} card={card} />)}
         </div>
         <Divider />
         <TechStack />
@@ -115,6 +115,7 @@ export default function HomePage() {
 }
 
 interface ICard {
+  id: string;
   title: string;
   description: string;
   Icon: React.ComponentType<{ className?: string }>;
@@ -122,16 +123,19 @@ interface ICard {
 
 const cards: ICard[] = [
   {
+    id: 'jwt-token',
     title: 'Token JWT Assinado',
     description: 'Token criptografado com HS256, impossível de falsificar sem a chave secreta',
     Icon: Lock,
   },
   {
+    id: 'expiracao',
     title: 'Expiração Automática',
     description: 'Token expira em 5 minutos, protegendo contra uso indevido',
     Icon: Clock,
   },
   {
+    id: 'stateless',
     title: 'Stateless (Sem Banco)',
     description: 'Toda informação está no token, sem necessidade de armazenamento',
     Icon: Shield,
