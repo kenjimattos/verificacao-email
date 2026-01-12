@@ -30,7 +30,7 @@ async function SuccessPage({
             <Mail className="w-4 h-4 text-primary" />
             <div>
               <small>E-mail verificado</small>
-              <p>{email ? email : "N/A"}</p>
+              <p>{email ?? "N/A"}</p>
             </div>
           </div>
 
