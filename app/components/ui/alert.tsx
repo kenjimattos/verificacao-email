@@ -30,7 +30,7 @@ export function Alert({ variant, title, children }: AlertProps) {
 
   return (
     <div className={`p-4 border rounded-lg flex items-start gap-3 ${styles.container}`}>
-      <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 ${styles.iconColor}`} />
+      <Icon className={`w-5 h-5 shrink-0 mt-0.5 ${styles.iconColor}`} />
       <div className="text-left">
         <p className={`font-medium ${styles.title}`}>{title}</p>
         <p className={`text-sm mt-1 ${styles.text}`}>{children}</p>
