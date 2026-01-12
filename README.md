@@ -100,6 +100,16 @@ http://localhost:3000/api/confirm-verification?token=eyJhbGciOiJIUzI1NiIs...
 │   │   │   └── email-template.ts   # Template HTML do e-mail
 │   │   └── confirm-verification/   # Endpoint de confirmação
 │   │       └── route.ts            # GET - valida JWT
+│   ├── components/
+│   │   └── ui/                     # Componentes de UI reutilizáveis
+│   │       ├── icon-circle.tsx     # Círculo com ícone
+│   │       ├── detail-item.tsx     # Ícone + label + valor
+│   │       ├── info-box.tsx        # Caixa de informação
+│   │       ├── alert.tsx           # Alertas de sucesso/erro
+│   │       ├── button.tsx          # Botão
+│   │       ├── card.tsx            # Card
+│   │       ├── input.tsx           # Campo de entrada
+│   │       └── ...
 │   ├── success/                    # Página de sucesso
 │   ├── error/                      # Página de erro
 │   └── layout.tsx

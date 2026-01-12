@@ -5,6 +5,22 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.2.0] - 2025-01-12
+
+### Adicionado
+- Componente `IconCircle` para círculos com ícone (3 variantes de cor, 2 tamanhos)
+- Componente `DetailItem` para exibição de ícone + label + valor
+- Componente `InfoBox` para caixas de informação (variantes info/error)
+
+### Refatorado
+- Classe CSS `flex-shrink-0` substituída por `shrink-0` (forma canônica do Tailwind)
+- Operador ternário `email ? email : "N/A"` substituído por nullish coalescing `??`
+- Cards agora usam IDs únicos como key em vez de índice do array
+- Handler de email extraído para função nomeada `handleEmailChange`
+- Padrão de círculo com ícone unificado nas páginas home, success e error
+- Blocos repetidos de "ícone + label + valor" extraídos para componente
+- Caixas de informação unificadas em componente reutilizável
+
 ## [1.1.2] - 2025-12-15
 
 ### Alterado
