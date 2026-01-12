@@ -14,6 +14,10 @@ export default function HomePage() {
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState('');
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus('loading');
@@ -56,7 +60,7 @@ export default function HomePage() {
           <Input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             placeholder="seu@email.com"
             required
             disabled={status === 'loading'}
