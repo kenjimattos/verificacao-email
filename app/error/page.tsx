@@ -1,5 +1,6 @@
 import { X, ArrowLeft } from "lucide-react"
-import { LinkBadge} from "../components/ui/link-badge";
+import { LinkBadge } from "../components/ui/link-badge";
+import { IconCircle } from "../components/ui";
 
 async function ErrorPage({
   searchParams,
@@ -10,9 +11,7 @@ async function ErrorPage({
 
   return (
     <div className="space-y-6">
-      <div className="w-20 h-20 mx-auto bg-secondary rounded-full flex items-center justify-center">
-        <X className="w-10 h-10 text-white stroke-[2]" />
-      </div>
+      <IconCircle icon={X} variant="secondary" />
 
       <div>
         <h1>E-mail Não Verificado!</h1>

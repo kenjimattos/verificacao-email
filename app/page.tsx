@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Mail, Shield, Clock, Lock, ArrowRight, Github } from 'lucide-react';
-import { Input, Button, Alert, Card, Divider } from './components/ui';
+import { Input, Button, Alert, Card, Divider, IconCircle } from './components/ui';
 import { version, repository} from '@/package.json';
 import { TechStack } from './components/tech-stack';
 import { LinkBadge } from './components/ui/link-badge';
@@ -48,8 +48,8 @@ export default function HomePage() {
       <div className="space-y-8">
         {/* Header */}
         <div>
-          <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-            <Mail className="w-8 h-8 text-primary" />
+          <div className="mb-4">
+            <IconCircle icon={Mail} size="sm" variant="primary-light" />
           </div>
           <h1>Verificação de E-mail</h1>
           <p>Sistema de verificação stateless com JWT</p>

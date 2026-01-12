@@ -1,6 +1,6 @@
 import { Check, Shield, Mail, Clock, ArrowLeft } from "lucide-react";
 import { LinkBadge } from "../components/ui/link-badge";
-import { Card } from "../components/ui";
+import { Card, IconCircle } from "../components/ui";
 
 async function SuccessPage({
   searchParams,
@@ -12,9 +12,7 @@ async function SuccessPage({
   return (
     <div className="space-y-6">
       {/* Ícone de sucesso */}
-      <div className="w-20 h-20 mx-auto bg-primary rounded-full flex items-center justify-center">
-        <Check className="w-10 h-10 text-white stroke-[2]" />
-      </div>
+      <IconCircle icon={Check} variant="primary" />
 
       <div>
         <h1>E-mail Verificado!</h1>
