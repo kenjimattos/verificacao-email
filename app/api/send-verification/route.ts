@@ -8,8 +8,8 @@ import { messages } from '@/lib/messages';
 import { getBaseUrl } from '@/lib/url';
 import { getEmailTemplate } from './email-template';
 
-export async function OPTIONS() {
-  return optionsResponse();
+export async function OPTIONS(request: NextRequest) {
+  return optionsResponse(request);
 }
 
 export async function POST(request: NextRequest) {
@@ -17,11 +17,11 @@ export async function POST(request: NextRequest) {
     const { email } = await request.json();
 
     if (!email) {
-      return errorResponse(messages.emailRequired, 400);
+      return errorResponse(messages.emailRequired, request, 400);
     }
 
     if (!isValidEmail(email)) {
-      return errorResponse(messages.emailInvalid, 400);
+      return errorResponse(messages.emailInvalid, request, 400);
     }
 
     const token = await createVerificationToken(email);
@@ -37,11 +37,11 @@ export async function POST(request: NextRequest) {
       html: getEmailTemplate(verificationLink),
     });
 
-    return jsonResponse({ message: messages.emailSent });
+    return jsonResponse({ message: messages.emailSent }, request);
 
   } catch (error: unknown) {
     console.error('Erro ao enviar e-mail:', error);
     const errorMessage = error instanceof Error ? error.message : messages.serverError;
-    return errorResponse(errorMessage);
+    return errorResponse(errorMessage, request);
   }
 }

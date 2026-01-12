@@ -1,19 +1,28 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-} as const;
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [];
 
-export function optionsResponse() {
-  return NextResponse.json({}, { headers: corsHeaders });
+function getCorsHeaders(origin?: string | null): HeadersInit {
+  const isAllowed = origin && (allowedOrigins.includes(origin) || allowedOrigins.includes('*'));
+
+  return {
+    'Access-Control-Allow-Origin': isAllowed ? origin : '',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  };
 }
 
-export function jsonResponse(data: object, status = 200) {
-  return NextResponse.json(data, { status, headers: corsHeaders });
+export function optionsResponse(request: NextRequest) {
+  const origin = request.headers.get('origin');
+  return NextResponse.json({}, { headers: getCorsHeaders(origin) });
 }
 
-export function errorResponse(error: string, status = 500) {
-  return NextResponse.json({ error }, { status, headers: corsHeaders });
+export function jsonResponse(data: object, request: NextRequest, status = 200) {
+  const origin = request.headers.get('origin');
+  return NextResponse.json(data, { status, headers: getCorsHeaders(origin) });
+}
+
+export function errorResponse(error: string, request: NextRequest, status = 500) {
+  const origin = request.headers.get('origin');
+  return NextResponse.json({ error }, { status, headers: getCorsHeaders(origin) });
 }

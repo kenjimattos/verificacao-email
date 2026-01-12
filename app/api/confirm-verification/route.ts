@@ -3,8 +3,8 @@ import { optionsResponse } from '@/lib/cors';
 import { verifyToken } from '@/lib/jwt';
 import { messages, getVerificationErrorMessage } from '@/lib/messages';
 
-export async function OPTIONS() {
-  return optionsResponse();
+export async function OPTIONS(request: NextRequest) {
+  return optionsResponse(request);
 }
 
 export async function GET(request: NextRequest) {
