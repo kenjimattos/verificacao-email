@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Mail, Shield, Clock, Lock, ArrowRight, Github } from 'lucide-react';
 import { Input, Button, Alert, Card, Divider, IconCircle } from './components/ui';
 import { version, repository} from '@/package.json';
@@ -97,7 +97,7 @@ export default function HomePage() {
 
           <p className="text-label text-center">Como funciona</p>
 
-          {cards.map((card) => <Cartao key={card.id} card={card} />)}
+          {cards.map((card) => <FeatureCard key={card.id} card={card} />)}
         </div>
         <Divider />
         <TechStack />
@@ -118,14 +118,14 @@ export default function HomePage() {
   );
 }
 
-interface ICard {
+type FeatureCardProps = {
   id: string;
   title: string;
   description: string;
   Icon: React.ComponentType<{ className?: string }>;
-}
+};
 
-const cards: ICard[] = [
+const cards: FeatureCardProps[] = [
   {
     id: 'jwt-token',
     title: 'Token JWT Assinado',
@@ -146,7 +146,7 @@ const cards: ICard[] = [
   },
 ];
 
-const Cartao = ({ card }: { card: ICard }) => {
+const FeatureCard = ({ card }: { card: FeatureCardProps }) => {
   return (
     <Card className="flex items-start gap-3">
       <card.Icon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
