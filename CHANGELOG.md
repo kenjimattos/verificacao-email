@@ -5,6 +5,22 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.3.0] - 2025-01-13
+
+### Segurança
+- Variáveis `JWT_SECRET` e `RESEND_API_KEY` agora são obrigatórias (sem fallback)
+- CORS configurado com lista de origins permitidos via `ALLOWED_ORIGINS`
+- Removidos logs que expunham dados sensíveis (emails, erros detalhados)
+
+### Alterado
+- TypeScript strict mode habilitado
+- Validação de response da API com fallback para mensagens genéricas
+
+### Refatorado
+- Componente `Cartao` renomeado para `FeatureCard` (convenção React)
+- Interface `ICard` renomeada para `FeatureCardProps` (remove Hungarian notation)
+- Import não utilizado `useCallback` removido
+
 ## [1.2.0] - 2025-01-12
 
 ### Adicionado
