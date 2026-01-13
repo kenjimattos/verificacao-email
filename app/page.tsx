@@ -33,10 +33,10 @@ export default function HomePage() {
 
       if (response.ok) {
         setStatus('success');
-        setMessage(data.message);
+        setMessage(data.message ?? 'E-mail enviado com sucesso');
       } else {
         setStatus('error');
-        setMessage(data.error);
+        setMessage(data.error ?? 'Erro ao processar requisição');
       }
     } catch {
       setStatus('error');
