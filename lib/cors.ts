@@ -17,12 +17,12 @@ export function optionsResponse(request: NextRequest) {
   return NextResponse.json({}, { headers: getCorsHeaders(origin) });
 }
 
-export function jsonResponse(data: object, request: NextRequest, status = 200) {
+export function jsonResponse(data: object, request: NextRequest, status = 200, extraHeaders?: HeadersInit) {
   const origin = request.headers.get('origin');
-  return NextResponse.json(data, { status, headers: getCorsHeaders(origin) });
+  return NextResponse.json(data, { status, headers: { ...getCorsHeaders(origin), ...extraHeaders } });
 }
 
-export function errorResponse(error: string, request: NextRequest, status = 500) {
+export function errorResponse(error: string, request: NextRequest, status = 500, extraHeaders?: HeadersInit) {
   const origin = request.headers.get('origin');
-  return NextResponse.json({ error }, { status, headers: getCorsHeaders(origin) });
+  return NextResponse.json({ error }, { status, headers: { ...getCorsHeaders(origin), ...extraHeaders } });
 }

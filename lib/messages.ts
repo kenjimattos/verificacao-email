@@ -9,6 +9,9 @@ export const messages = {
   // Sucesso
   emailSent: 'E-mail de verificação enviado com sucesso',
 
+  // Rate limiting
+  rateLimitExceeded: 'Muitas requisições. Tente novamente em alguns instantes',
+
   // Erro genérico
   serverError: 'Erro interno do servidor',
 } as const;

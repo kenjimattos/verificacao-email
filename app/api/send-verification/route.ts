@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { Resend } from 'resend';
 import { config } from '@/lib/config';
 import { optionsResponse, jsonResponse, errorResponse } from '@/lib/cors';
+import { checkRateLimit, rateLimitHeaders } from '@/lib/rate-limiter';
 import { createVerificationToken } from '@/lib/jwt';
 import { isValidEmail } from '@/lib/validation';
 import { messages } from '@/lib/messages';
@@ -13,15 +14,22 @@ export async function OPTIONS(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const rateLimit = checkRateLimit(request);
+  const rlHeaders = rateLimitHeaders(rateLimit);
+
+  if (!rateLimit.allowed) {
+    return errorResponse(messages.rateLimitExceeded, request, 429, rlHeaders);
+  }
+
   try {
     const { email } = await request.json();
 
     if (!email) {
-      return errorResponse(messages.emailRequired, request, 400);
+      return errorResponse(messages.emailRequired, request, 400, rlHeaders);
     }
 
     if (!isValidEmail(email)) {
-      return errorResponse(messages.emailInvalid, request, 400);
+      return errorResponse(messages.emailInvalid, request, 400, rlHeaders);
     }
 
     const token = await createVerificationToken(email);
@@ -37,10 +45,10 @@ export async function POST(request: NextRequest) {
       html: getEmailTemplate(verificationLink),
     });
 
-    return jsonResponse({ message: messages.emailSent }, request);
+    return jsonResponse({ message: messages.emailSent }, request, 200, rlHeaders);
 
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : messages.serverError;
-    return errorResponse(errorMessage, request);
+    return errorResponse(errorMessage, request, 500, rlHeaders);
   }
 }
