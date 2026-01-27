@@ -1,108 +1,33 @@
 # Verificação de E-mails
 
-> **Projeto de Portfolio** — Implementação didática de verificação de e-mail stateless para demonstrar boas práticas em Next.js, TypeScript e segurança web.
+> **Projeto de Portfolio** — API REST de verificação de e-mail com foco em segurança e boas práticas. Implementação stateless com JWT, rate limiting e CORS configurável.
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
 
 🔗 **Demo:** [verificacao-email.vercel.app](https://verificacao-email.vercel.app/)
 
 ## Sobre o Projeto
 
-Este projeto implementa um sistema de verificação de e-mail **do zero**, sem depender de serviços de autenticação prontos (Auth.js, Clerk, Firebase Auth). O objetivo é demonstrar:
+Este projeto implementa uma **API REST de verificação de e-mail do zero**, sem depender de serviços de autenticação prontos (Auth.js, Clerk, Firebase Auth).
 
-- Compreensão profunda do fluxo de verificação de e-mail
-- Implementação segura de tokens JWT
-- Boas práticas de segurança (CORS, validação, sanitização)
-- Arquitetura limpa com separação de responsabilidades
-- Componentização e reutilização de código
+O objetivo é demonstrar domínio em:
 
-### Por que não usar Auth.js/Clerk/Firebase?
+- **Design de API REST** — Endpoints bem definidos, status codes corretos, headers informativos
+- **Segurança** — CORS com allowlist, rate limiting, validação de input, tokens seguros
+- **Arquitetura** — Separação de responsabilidades, módulos reutilizáveis, configuração centralizada
+- **TypeScript** — Strict mode, tipagem completa, sem `any`
 
-Em produção, essas soluções são recomendadas. Este projeto existe para:
+### Por que implementar do zero?
 
-1. **Demonstrar conhecimento** — Entender o que acontece "por baixo dos panos"
-2. **Aprendizado** — Servir como referência para estudos
-3. **Customização total** — Cenários onde libs prontas não atendem
+Em produção, soluções como Auth.js ou Clerk são recomendadas. Este projeto existe para demonstrar **compreensão profunda** do que essas ferramentas fazem internamente.
 
-## Como Funciona
+## API
 
-```
-┌─────────────┐     ┌───────────────────┐     ┌─────────────────┐
-│  Sua App    │────▶│  POST /api/       │────▶│  Resend (SMTP)  │
-│             │     │  send-verification│     │                 │
-└─────────────┘     └───────────────────┘     └─────────────────┘
-                            │
-                            │ JWT Token
-                            ▼
-┌─────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│  Usuário    │────▶│  GET /api/       │────▶│  Página de      │
-│  clica link │     │  confirm-verif   │     │  Sucesso/Erro   │
-└─────────────┘     └──────────────────┘     └─────────────────┘
-```
+### `POST /api/send-verification`
 
-1. Sua aplicação chama `POST /api/send-verification` passando o e-mail
-2. A API gera um token JWT e envia o e-mail via Resend
-3. O usuário clica no link do e-mail
-4. A API valida o JWT e redireciona para sucesso ou erro
-
-## Decisões Técnicas
-
-| Decisão | Motivo |
-|---------|--------|
-| **JWT stateless** | Elimina necessidade de banco de dados para tokens simples |
-| **jose (não jsonwebtoken)** | Compatível com Edge Runtime do Vercel |
-| **CORS com allowlist** | Segurança contra requisições de origins não autorizados |
-| **Env vars obrigatórias** | Falha rápida em vez de fallbacks inseguros |
-| **TypeScript strict** | Maior segurança de tipos em tempo de compilação |
-
-## Funcionalidades
-
-- **Stateless**: Tokens JWT sem necessidade de banco de dados
-- **Envio de E-mail**: Via Resend com template HTML responsivo
-- **Validação de Token**: Verifica autenticidade e expiração (5 minutos)
-- **Feedback Visual**: Páginas de sucesso e erro estilizadas
-- **CORS Seguro**: Lista de origins permitidos via variável de ambiente
-
-## Instalação
-
-```bash
-# Clone o repositório
-git clone https://github.com/kenjimattos/verificacao-email.git
-cd verificacao-email
-
-# Instale as dependências
-npm install
-
-# Configure as variáveis de ambiente
-cp .env.example .env.local
-
-# Inicie o servidor de desenvolvimento
-npm run dev
-```
-
-## Variáveis de Ambiente
-
-```env
-# Chave secreta para assinar tokens JWT (obrigatório)
-# Gere uma chave segura: openssl rand -base64 32
-JWT_SECRET=sua-chave-secreta-muito-segura
-
-# Resend - Envio de e-mails (https://resend.com) (obrigatório)
-RESEND_API_KEY=re_xxxxxxxxxxxx
-EMAIL_FROM=noreply@seudominio.com
-
-# CORS - Origins permitidos (separados por vírgula)
-# Use * apenas em desenvolvimento
-ALLOWED_ORIGINS=http://localhost:3000,https://seudominio.com
-```
-
-> **Nota de segurança:** `JWT_SECRET` e `RESEND_API_KEY` são obrigatórios. A aplicação falha ao iniciar se não estiverem definidos.
-
-## Uso
-
-### Enviar E-mail de Verificação
+Gera um token JWT e envia o e-mail de verificação.
 
 ```bash
 curl -X POST 'http://localhost:3000/api/send-verification' \
@@ -110,108 +35,142 @@ curl -X POST 'http://localhost:3000/api/send-verification' \
   -d '{"email": "usuario@exemplo.com"}'
 ```
 
-**Resposta de sucesso:**
-```json
-{"message": "E-mail de verificação enviado com sucesso"}
+| Status | Resposta | Quando |
+|--------|----------|--------|
+| `200` | `{"message": "E-mail de verificação enviado com sucesso"}` | E-mail enviado |
+| `400` | `{"error": "E-mail é obrigatório"}` | Body sem email |
+| `400` | `{"error": "E-mail inválido"}` | Formato inválido |
+| `429` | `{"error": "Muitas requisições..."}` | Rate limit excedido |
+| `500` | `{"error": "Erro interno do servidor"}` | Falha no envio |
+
+**Headers de Rate Limiting:**
+
+```
+X-RateLimit-Limit: 5
+X-RateLimit-Remaining: 4
+X-RateLimit-Reset: 60
 ```
 
-### Confirmar Verificação
+### `GET /api/confirm-verification?token=<jwt>`
 
-O usuário clica no link recebido por e-mail:
+Valida o token JWT e redireciona o usuário.
+
+| Resultado | Redirecionamento |
+|-----------|------------------|
+| Token válido | `/success?email=usuario@exemplo.com` |
+| Token expirado | `/error?message=O token de verificação expirou` |
+| Token inválido | `/error?message=Token de verificação inválido` |
+
+### Fluxo Completo
+
 ```
-http://localhost:3000/api/confirm-verification?token=eyJhbGciOiJIUzI1NiIs...
+┌─────────────┐     ┌───────────────────┐     ┌─────────────────┐
+│  Sua App    │────▶│  POST /api/       │────▶│  Resend (SMTP)  │
+│             │     │  send-verification│     │                 │
+└─────────────┘     └───────────────────┘     └─────────────────┘
+                            │
+                            │ JWT Token (HS256, 5min)
+                            ▼
+┌─────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│  Usuário    │────▶│  GET /api/       │────▶│  /success ou    │
+│  clica link │     │  confirm-verif   │     │  /error         │
+└─────────────┘     └──────────────────┘     └─────────────────┘
 ```
 
-- **Token válido**: Redireciona para `/success`
-- **Token inválido/expirado**: Redireciona para `/error`
+## Segurança
+
+| Camada | Implementação |
+|--------|---------------|
+| **Autenticação de token** | JWT assinado com HS256 via `jose` |
+| **Expiração** | Token expira em 5 minutos |
+| **Rate Limiting** | Sliding window por IP (5 req/min configurável) |
+| **CORS** | Allowlist de origins via variável de ambiente |
+| **Validação de input** | Regex para e-mail no backend |
+| **Env vars obrigatórias** | Falha ao iniciar se `JWT_SECRET` ou `RESEND_API_KEY` não definidas |
+| **TypeScript strict** | Tipagem completa, sem fallbacks inseguros |
+
+## Decisões Técnicas
+
+| Decisão | Alternativa | Motivo da escolha |
+|---------|-------------|-------------------|
+| **JWT stateless** | Session com banco | Elimina dependência de DB para caso simples |
+| **jose** | jsonwebtoken | Compatível com Edge Runtime do Vercel |
+| **Rate limit in-memory** | Redis/Upstash | Zero dependência externa; suficiente para single-instance |
+| **CORS dinâmico** | Wildcard `*` | Segurança; valida origin por request |
+| **Validação com regex** | Zod/Yup | Caso simples; sem overhead de lib para 1 campo |
+
+## Instalação
+
+```bash
+git clone https://github.com/kenjimattos/verificacao-email.git
+cd verificacao-email
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+## Variáveis de Ambiente
+
+```env
+# Obrigatórias
+JWT_SECRET=            # openssl rand -base64 32
+RESEND_API_KEY=        # https://resend.com
+EMAIL_FROM=noreply@seudominio.com
+
+# Segurança
+ALLOWED_ORIGINS=http://localhost:3000   # separados por vírgula
+
+# Rate Limiting (opcional)
+RATE_LIMIT_MAX=5             # requisições por janela
+RATE_LIMIT_WINDOW_MS=60000   # janela em ms (1 min)
+```
+
+> `JWT_SECRET` e `RESEND_API_KEY` são obrigatórios. A aplicação lança erro ao iniciar se não estiverem definidos.
 
 ## Estrutura do Projeto
 
 ```
 ├── app/
 │   ├── api/
-│   │   ├── send-verification/      # Endpoint de envio
-│   │   │   ├── route.ts            # POST - gera JWT e envia e-mail
-│   │   │   └── email-template.ts   # Template HTML do e-mail
-│   │   └── confirm-verification/   # Endpoint de confirmação
-│   │       └── route.ts            # GET - valida JWT
-│   ├── components/
-│   │   └── ui/                     # Componentes de UI reutilizáveis
-│   │       ├── icon-circle.tsx     # Círculo com ícone
-│   │       ├── detail-item.tsx     # Ícone + label + valor
-│   │       ├── info-box.tsx        # Caixa de informação
-│   │       ├── alert.tsx           # Alertas de sucesso/erro
-│   │       ├── button.tsx          # Botão
-│   │       ├── card.tsx            # Card
-│   │       ├── input.tsx           # Campo de entrada
-│   │       └── ...
-│   ├── success/                    # Página de sucesso
-│   ├── error/                      # Página de erro
-│   └── layout.tsx
+│   │   ├── send-verification/      # POST - gera JWT e envia e-mail
+│   │   └── confirm-verification/   # GET - valida JWT e redireciona
+│   ├── components/ui/              # Componentes reutilizáveis
+│   ├── success/                    # Página de verificação bem-sucedida
+│   └── error/                      # Página de erro
+├── lib/
+│   ├── config.ts                   # Env vars com validação obrigatória
+│   ├── jwt.ts                      # Criação e verificação de tokens
+│   ├── rate-limiter.ts             # Sliding window por IP
+│   ├── cors.ts                     # CORS dinâmico com allowlist
+│   ├── validation.ts               # Validação de e-mail
+│   ├── messages.ts                 # Mensagens centralizadas
+│   └── url.ts                      # Helper de URL base
 └── package.json
 ```
 
-## Customização
-
-### Alterar Template de E-mail
-
-Edite `app/api/send-verification/email-template.ts`
-
-### Alterar Tempo de Expiração
-
-Em `app/api/send-verification/route.ts`, linha 40:
-
-```typescript
-.setExpirationTime('5m')  // 5 minutos, 1h, 24h, etc.
-```
-
-### Alterar Páginas de Sucesso/Erro
-
-- `app/success/page.tsx`
-- `app/error/page.tsx`
-
 ## Tecnologias
 
-- [Next.js 16](https://nextjs.org/) - Framework React
-- [React 19](https://react.dev/) - Biblioteca UI
-- [TypeScript](https://www.typescriptlang.org/) - Tipagem estática
-- [jose](https://github.com/panva/jose) - JWT para Edge Runtime
-- [Resend](https://resend.com/) - Envio de e-mails
-- [Tailwind CSS 4](https://tailwindcss.com/) - Estilização
-
-## Problemas e Sugestões
-
-Encontrou um bug ou tem uma sugestão? Abra uma issue!
-
-1. Acesse [GitHub Issues](https://github.com/kenjimattos/verificacao-email/issues)
-2. Clique em "New Issue"
-3. Descreva o problema ou sugestão com detalhes
-4. Inclua passos para reproduzir (se for bug)
-
-## Contribuição
-
-Contribuições são bem-vindas! Por favor:
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+- [Next.js 16](https://nextjs.org/) — Framework React com App Router
+- [TypeScript](https://www.typescriptlang.org/) — Strict mode
+- [jose](https://github.com/panva/jose) — JWT para Edge Runtime
+- [Resend](https://resend.com/) — Envio de e-mails
+- [Tailwind CSS 4](https://tailwindcss.com/) — Estilização
+- [React 19](https://react.dev/) — UI
 
 ## Limitações Conhecidas
 
 Este projeto é **educacional**. Para produção, considere:
 
-| Limitação | Solução em Produção |
+| Limitação | Solução recomendada |
 |-----------|---------------------|
-| Sem rate limiting | Implementar com Upstash/Redis |
-| Sem revogação de tokens | Usar blacklist ou tokens stateful |
-| Sem re-envio de email | Adicionar endpoint de resend com cooldown |
-| Sem testes automatizados | Adicionar Jest/Vitest + Playwright |
+| Rate limit in-memory | Redis/Upstash para ambientes multi-instance |
+| Sem revogação de tokens | Blacklist em cache ou tokens stateful |
+| Sem re-envio de email | Endpoint de resend com cooldown |
+| Sem testes automatizados | Vitest + Playwright |
 
 ## Licença
 
-Este projeto está sob a licença ISC. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+ISC — Veja [LICENSE](LICENSE) para detalhes.
 
 ---
 
