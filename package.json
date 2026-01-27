@@ -1,8 +1,7 @@
 {
   "name": "verificacao-email",
-  "version": "1.2.0",
-  "description": "Serviço de verificação de e-mails para desenvolvedores",
-  "main": "index.js",
+  "version": "1.3.0",
+  "description": "API REST de verificação de e-mail stateless com JWT, rate limiting e CORS configurável",
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",
     "jose": "^6.1.3",
