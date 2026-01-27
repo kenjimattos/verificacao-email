@@ -5,6 +5,19 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.4.0] - 2025-01-27
+
+### Adicionado
+- Rate limiting por IP com sliding window (`lib/rate-limiter.ts`)
+- Headers `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`
+- Status 429 Too Many Requests ao exceder limite
+- Variáveis `RATE_LIMIT_MAX` e `RATE_LIMIT_WINDOW_MS` configuráveis
+- Cleanup automático de entradas expiradas no rate limiter
+- Suporte a headers extras em `jsonResponse` e `errorResponse`
+
+### Alterado
+- README reescrito com foco em documentação de API REST e segurança
+
 ## [1.3.0] - 2025-01-13
 
 ### Segurança
