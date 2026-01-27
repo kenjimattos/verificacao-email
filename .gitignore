@@ -28,5 +28,9 @@ next-env.d.ts
 .DS_Store
 **/.DS_Store
 
+# lockfiles de outros package managers
+pnpm-lock.yaml
+yarn.lock
+
 # VS Code
 /.vscode
